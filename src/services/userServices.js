@@ -18,4 +18,21 @@ const loginUser = async (email, password) => {
   };
 };
 
-module.exports = { loginUser };
+const createUser = async (displayName, email, password, image) => {
+  const newUser = await User.create({ displayName, email, password, image });
+
+  if (!newUser) {
+    return {
+      error: {
+        message: 'Cannot create User',
+        httpStatus: 400,
+      },
+    };
+  }
+  return {
+    payload: newUser,
+    httpStatus: 201,
+  };
+};
+
+module.exports = { loginUser, createUser };

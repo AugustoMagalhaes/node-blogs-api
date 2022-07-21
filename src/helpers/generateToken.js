@@ -3,8 +3,6 @@ require('dotenv').config();
 
 const secret = process.env.JWT_SECRET;
 
-console.log('secret', secret);
-
 const generateToken = (user) => {
   const jwtConfig = {
     expiresIn: '7d',
