@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const secret = process.env.JWT_SECRET;
+
+console.log('secret', secret);
 
 const generateToken = (user) => {
   const jwtConfig = {
@@ -8,7 +11,13 @@ const generateToken = (user) => {
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ data: user }, secret, jwtConfig);
+  const { email, password } = user;
+  const userInfo = {
+    email,
+    password,
+  };
+
+  const token = jwt.sign({ data: userInfo }, secret, jwtConfig);
   return token;
 };
 
