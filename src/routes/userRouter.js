@@ -7,6 +7,8 @@ const { validateTokenField } = require('../middlewares/validateToken');
 
 userRouter.get('/', validateTokenField, userController.getAllUsers);
 
+userRouter.get('/:id', validateTokenField, userController.getUserById);
+
 userRouter.post('/', validateUserFields, userController.createUser);
 
 module.exports = userRouter;
