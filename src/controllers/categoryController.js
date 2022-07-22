@@ -1,5 +1,20 @@
 const categoryServices = require('../services/categoryServices');
 
+const getAllCategories = async (_req, res) => {
+  try {
+    const categories = await categoryServices.getAllCategories();
+
+    const { payload, httpStatus } = categories;
+
+    if (!payload) {
+      throw new Error('Something went wrong');
+    }
+
+    return res.status(httpStatus).json(payload);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
 const createCategory = async (req, res) => {
   const { name } = req.body;
   let error;
@@ -21,4 +36,4 @@ const createCategory = async (req, res) => {
   }
 };
 
-module.exports = { createCategory };
+module.exports = { createCategory, getAllCategories };
