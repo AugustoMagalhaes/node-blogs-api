@@ -22,6 +22,22 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (_req, res) => {
+  try {
+    const users = await userServices.getAllUsers();
+
+    const { payload, httpStatus } = users;
+
+    if (!payload) {
+      throw new Error('Something went wrong');
+    }
+
+    return res.status(httpStatus).json(payload);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   let error;
@@ -43,4 +59,4 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, createUser };
+module.exports = { loginUser, createUser, getAllUsers };
