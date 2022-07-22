@@ -1,5 +1,12 @@
 const { Category } = require('../database/models');
 
+const getAllCategories = async () => {
+  const categories = await Category.findAll();
+  return {
+    httpStatus: 200,
+    payload: categories,
+  };
+};
 const createCategory = async (name) => {
   const newCategory = await Category.create({ name });
 
@@ -18,4 +25,4 @@ const createCategory = async (name) => {
   };
 };
 
-module.exports = { createCategory };
+module.exports = { createCategory, getAllCategories };
