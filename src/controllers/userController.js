@@ -38,6 +38,27 @@ const getAllUsers = async (_req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  let error;
+  let httpStatus;
+  let payload;
+
+  try {
+    const user = await userServices.getUserById(id);
+
+    ({ error, httpStatus, payload } = user);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return res.status(httpStatus).json(payload);
+  } catch (err) {
+    return res.status(httpStatus).json({ message: err.message });
+  }
+};
+
 const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
   let error;
@@ -59,4 +80,4 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, createUser, getAllUsers };
+module.exports = { loginUser, createUser, getAllUsers, getUserById };
