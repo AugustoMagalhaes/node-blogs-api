@@ -26,6 +26,24 @@ const getAllUsers = async () => {
   };
 };
 
+const getUserById = async (id) => {
+  const user = await User.findOne({ where: { id }, attributes: { exclude: 'password' } });
+
+  if (!user) {
+    return {
+      error: {
+        message: 'User does not exist',
+      },
+      httpStatus: 404,
+    };
+  }
+
+  return {
+    httpStatus: 200,
+    payload: user,
+  };
+};
+
 const createUser = async (displayName, email, password, image) => {
   const newUser = await User.create({ displayName, email, password, image });
 
@@ -43,4 +61,4 @@ const createUser = async (displayName, email, password, image) => {
   };
 };
 
-module.exports = { loginUser, createUser, getAllUsers };
+module.exports = { loginUser, createUser, getAllUsers, getUserById };
