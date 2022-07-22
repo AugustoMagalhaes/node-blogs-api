@@ -5,6 +5,8 @@ const { validateCategoryName } = require('../middlewares/validateCategory');
 const { validateTokenField } = require('../middlewares/validateToken');
 const categoryController = require('../controllers/categoryController');
 
+categoryRouter.get('/', validateTokenField, categoryController.getAllCategories);
+
 categoryRouter.post(
   '/',
   validateTokenField,
